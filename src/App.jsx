@@ -6,14 +6,19 @@ import "./App.css";
 
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
+import Jumbotron from "./components/Jumbotron";
+import Footer from "./components/Footer";
+
 
 class App extends React.Component {
   render() {
     return (
       <>
       <NavBar />
-    
+      <Jumbotron />
       <Home />
+      <Footer />
+
       </>
     );
 }

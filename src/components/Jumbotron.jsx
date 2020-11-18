@@ -1,20 +1,22 @@
 import React, { Component } from "react";
-import { Button } from "react-bootstrap";
+import { Container, Jumbotron } from "react-bootstrap";
 
-export class Jumbotron extends Component {
+export class MyJumbotron extends Component {
   render() {
     return (
-      <div>
-          <h1 variant="justify-content-center">Hello, world!</h1>
-          <p>
-            This is the tag line for my bookstore.
-          </p>
-          <p>
-            <Button variant="primary">Learn more</Button>
-          </p>
+        <div>
+          <Jumbotron className="mt-5">
+            <Container>
+              <h1>Strive Book Store</h1>
+              <p>
+                Quirky tag line coming atcha
+              </p>
+            </Container>
+          </Jumbotron>
       </div>
     );
-  }
+  };
+  
 }
 
-export default Jumbotron;
+export default MyJumbotron;

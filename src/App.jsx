@@ -4,10 +4,10 @@ import "bootstrap/dist/css/bootstrap.min.css"; //make sure your css is below, so
 import "./App.css";
 
 
-import Home from "./components/Home";
-import NavBar from "./components/NavBar";
-import Jumbotron from "./components/Jumbotron";
-import Footer from "./components/Footer";
+import NavBar from "./Components/NavBar";
+import MyJumbotron from "./Components/Jumbotron";
+import Footer from "./Components/Footer";
+import SpecialReleases from "./Components/SpecialReleases"
 
 
 class App extends React.Component {
@@ -15,8 +15,8 @@ class App extends React.Component {
     return (
       <>
       <NavBar />
-      <Jumbotron />
-      <Home />
+      <MyJumbotron />
+      <SpecialReleases />
       <Footer />
 
       </>

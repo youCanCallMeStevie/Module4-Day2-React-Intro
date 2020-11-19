@@ -8,6 +8,7 @@ import NavBar from "./Components/NavBar";
 import MyJumbotron from "./Components/Jumbotron";
 import Footer from "./Components/Footer";
 import SpecialReleases from "./Components/SpecialReleases"
+import CommentArea from './Components/CommentArea';
 
 
 class App extends React.Component {
@@ -17,6 +18,7 @@ class App extends React.Component {
       <NavBar />
       <MyJumbotron />
       <SpecialReleases />
+      <CommentArea />
       <Footer />
 
       </>

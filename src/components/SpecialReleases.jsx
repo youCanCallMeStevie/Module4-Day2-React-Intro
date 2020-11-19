@@ -1,87 +1,91 @@
 import React from "react";
-import { Row, Col, Dropdown, Container } from "react-bootstrap";
+import { Row, Dropdown, Container, InputGroup, FormControl, DropdownButton } from "react-bootstrap";
 import Fantasy from "../Data/fantasy.json";
 import Horror from "../Data/horror.json";
 import History from "../Data/history.json";
 import Romance from "../Data/romance.json";
 import Scifi from "../Data/scifi.json";
+import SingleBook from "./SingleBook"
+
+
+let bookCategories = ["fantasy", "horror", "history", "romance", "scifi"];
+let books = {
+  Fantasy,
+  Horror,
+  History,
+  Romance,
+  Scifi,
+};
 
 class SpecialReleases extends React.Component {
   state = {
-    genre: Fantasy,
-    category: "Search Genre",
+    books: Fantasy.slice(0, 12),
+    categorySelected: "fantasy",
   };
 
+  handleDropdownChange = (category) => {
+    this.setState({
+      books: books[category],
+      categorySelected: category,
+    });
+  };
+
+  handleSearchQuery = (searchQuery) => {
+    
+    if (searchQuery) {
+        console.log(searchQuery)
+      let filteredBooks = Fantasy.filter((book) =>
+        book.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      this.setState({ books: filteredBooks });
+      console.log(filteredBooks)
+    } else {
+      this.setState({ books: Fantasy });
+    }
+  };
   render() {
     return (
       
       <Container>
-        <Dropdown>
-          <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-            {this.state.category}
-          </Dropdown.Toggle>
+        <InputGroup>
+            <DropdownButton
+              as={InputGroup.Prepend}
+              id="dropdown-basic-button"
+              className="mb-3"
+              title={this.state.categorySelected}
+            >
+              {bookCategories.map((category, index) => {
+                return (
+                  <Dropdown.Item
+                    href="#/action-1"
+                    key={`dropdown-category-${index}`}
+                    onClick={() => this.handleDropdownChange(category)}
+                  >
+                    {category}
+                  </Dropdown.Item>
+                );
+              })}
+            </DropdownButton>
+            <FormControl
+              placeholder="Search Books by Title"
+              aria-label="Search"
+              aria-describedby="basic-addon1"
+              onChange={(e) => this.handleSearchQuery(e.target.value)}
+            />
+          </InputGroup>
 
-          <Dropdown.Menu>
-            <Dropdown.Item
-              href="#/action-1"
-              onClick={() =>
-                this.setState({ genre: Fantasy, category: "Fantasy" })
-              }
-            >
-              Fantasy
-            </Dropdown.Item>
-            <Dropdown.Item
-              href="#/action-2"
-              onClick={() =>
-                this.setState({ genre: History, category: "History" })
-              }
-            >
-              History
-            </Dropdown.Item>
-            <Dropdown.Item
-              href="#/action-3"
-              onClick={() =>
-                this.setState({ genre: Horror, category: "Horror" })
-              }
-            >
-              Horror
-            </Dropdown.Item>
-            <Dropdown.Item
-              href="#/action-3"
-              onClick={() =>
-                this.setState({ genre: Romance, category: "Romance" })
-              }
-            >
-              Romance
-            </Dropdown.Item>
-            <Dropdown.Item
-              href="#/action-3"
-              onClick={() => this.setState({ genre: Scifi, category: "Scifi" })}
-            >
-              SciFi
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-        <Row className="mt-4">
-          {this.state.genre.map((item) => {
-            return (
-              <Col
-                xs={12}
-                md={4}
-                lg={2}
-                className="mb-3 position-relative"
-                key={`item${item.asin}`}
-              >
-                <img
-                  className="img-fluid"
-                  src={item.img}
-                  alt={item.name}
-                  style={{ height: "200px", objectFit: "cover" }}
-                />
-              </Col>
-            );
-          })}
-        </Row>
+          <Row className="mt-4">
+            {this.state.books ? (this.state.books.map((item) => { 
+                
+                    return (
+                        <SingleBook title = {item.title} image ={item.img} key={item.asin} category={item.category} price={item.price}/>
+                        );
+                    })
+                  ) : (
+                      
+                    <div> Nothing here </div>
+                  )}
+                </Row>
         </Container>
       
     );

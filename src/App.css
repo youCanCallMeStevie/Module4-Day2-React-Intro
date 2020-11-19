@@ -20,3 +20,9 @@
 #root .App {
   background-color: red;
 }
+
+.selectedCard {
+  border-style: solid;
+  border-color: red;
+  border-width: 0.5vw;
+}
